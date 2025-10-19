@@ -1,0 +1,75 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.weatherapi.com/v1/current.json?key=<WEATHERAPI_KEY>&q=San%20Francisco,%20CA
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 19 Oct 2025 23:46:52 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+      Server:
+      - BunnyCDN-LA1-1113
+      Cdn-Pullzone:
+      - '93447'
+      Cdn-Uid:
+      - 8fa3a04a-75d9-4707-8056-b7b33c8ac7fe
+      Cdn-Requestcountrycode:
+      - US
+      Age:
+      - '0'
+      Cache-Control:
+      - public, max-age=180
+      Via:
+      - 1.1 varnish (Varnish/7.1)
+      X-Weatherapi-Qpm-Left:
+      - '4999998'
+      X-Varnish:
+      - '720029787'
+      Cdn-Proxyver:
+      - '1.39'
+      Cdn-Requestpullsuccess:
+      - 'True'
+      Cdn-Requestpullcode:
+      - '200'
+      Cdn-Cachedat:
+      - 10/19/2025 23:46:52
+      Cdn-Edgestorageid:
+      - '1114'
+      Cdn-Requestid:
+      - e9587645e660cb483dbcb6635d24e200
+      Cdn-Cache:
+      - MISS
+      Cdn-Status:
+      - '200'
+      Cdn-Requesttime:
+      - '0'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"location":{"name":"San Francisco","region":"California","country":"United
+        States of America","lat":37.775,"lon":-122.4183,"tz_id":"America/Los_Angeles","localtime_epoch":1760918306,"localtime":"2025-10-19
+        16:58"},"current":{"last_updated_epoch":1760917500,"last_updated":"2025-10-19
+        16:45","temp_c":18.9,"temp_f":66.0,"is_day":1,"condition":{"text":"Partly
+        Cloudy","icon":"//cdn.weatherapi.com/weather/64x64/day/116.png","code":1003},"wind_mph":11.2,"wind_kph":18.0,"wind_degree":267,"wind_dir":"W","pressure_mb":1017.0,"pressure_in":30.03,"precip_mm":0.0,"precip_in":0.0,"humidity":65,"cloud":25,"feelslike_c":18.9,"feelslike_f":66.0,"windchill_c":16.6,"windchill_f":61.9,"heatindex_c":16.6,"heatindex_f":61.9,"dewpoint_c":13.8,"dewpoint_f":56.8,"vis_km":16.0,"vis_miles":9.0,"uv":1.8,"gust_mph":15.5,"gust_kph":24.9,"short_rad":610.96,"diff_rad":75.25,"dni":0.0,"gti":80.17}}'
+  recorded_at: Sun, 19 Oct 2025 23:46:52 GMT
+recorded_with: VCR 6.3.1
