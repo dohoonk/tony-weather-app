@@ -56,4 +56,10 @@ group :development do
   gem "web-console"
 end
 
+group :test do
+  # System specs
+  gem "capybara"
+end
+
+
 gem "rspec-rails", "~> 8.0"
