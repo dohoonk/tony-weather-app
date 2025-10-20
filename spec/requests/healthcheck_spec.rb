@@ -24,7 +24,7 @@ RSpec.describe "Healthchecks", type: :request do
   end
 
   describe "GET /" do
-    it "returns a http success" do
+    it "returns http success for the home page" do
       get "/"
       expect(response).to have_http_status(:ok)
     end

@@ -1,4 +1,6 @@
 class WeatherController < ApplicationController
+  before_action :require_login
+  
   def show
     location = params[:location].presence || default_location
     @forecast = weather_service.fetch(location:)
@@ -6,7 +8,7 @@ class WeatherController < ApplicationController
     flash.now[:alert] = "Unable to fetch weather right now."
     @forecast = Forecast.example
   end
-  
+
   private
 
   def weather_service

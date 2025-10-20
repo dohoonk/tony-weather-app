@@ -73,3 +73,5 @@ end
 
 
 gem "rspec-rails", "~> 8.0"
+
+gem "omniauth-google-oauth2", "~> 1.2"
