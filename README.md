@@ -15,8 +15,6 @@ Create a `.env` file with:
 
 ```
 WEATHERAPI_KEY=your_api_key
-GOOGLE_CLIENT_ID=your_client_id
-GOOGLE_CLIENT_SECRET=your_client_secret
 ```
 
 ## Running Tests
@@ -40,3 +38,11 @@ For a deeper breakdown of responsibilities see `ARCHITECTURE.md`.
 - `WeatherController#show` serves cached data immediately; entries older than five minutes enqueue `WeatherFetchJob` for refresh.
 - `WeatherFetchJob` runs via Sidekiq and rewrites the cache with fresh data.
 - Run Sidekiq locally with `bundle exec sidekiq -q weather`.
+
+## Scope Limitations
+
+- **Cache keys mirror the submitted address** – Cached forecasts are indexed by the normalized city/state string (`address.parameterize`). Two users typing the same location differently (“Seattle, WA” vs “Seattle”) will bypass each other’s cache entry.
+- **ZIP-based caching needs extra plumbing** – Switching to ZIP keys would require (1) a lightweight geocoding lookup to derive a postal code when the input lacks one and (2) validation to block ambiguous entries (e.g., “Seattle”) that cannot be resolved to a single ZIP.
+- **Trade-offs today**
+  - *Pro*: Accepting free-form city/state lets users search broadly without knowing an exact ZIP.
+  - *Con*: We never persist the postal code, so cache reuse can not rely on ZIP.

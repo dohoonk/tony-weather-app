@@ -8,3 +8,81 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+body.landing {
+  margin: 0;
+  min-height: 100vh;
+  background: #090909;
+  color: #f5f5f5;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.landing__shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing__header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.landing__brand {
+  color: #ffffff;
+}
+
+.landing__content {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 48px 16px;
+  text-align: center;
+}
+
+.hero {
+  display: grid;
+  gap: 20px;
+}
+
+.hero__headline {
+  margin: 0;
+  font-size: clamp(2.75rem, 8vw, 5rem);
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.hero__subhead {
+  margin: 0;
+  font-size: 1rem;
+  color: rgba(245, 245, 245, 0.7);
+  letter-spacing: 0.08em;
+}
+
+.hero__cta {
+  justify-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  background: transparent;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.hero__cta:hover,
+.hero__cta:focus {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+}
