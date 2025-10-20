@@ -1,5 +1,10 @@
 require_relative "boot"
-require "dotenv/load"
+
+# Load environment variables from .env for local development and test only.
+if %w[development test].include?(ENV.fetch("RAILS_ENV", ENV.fetch("RACK_ENV", "development")))
+  require "dotenv/load"
+end
+
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
