@@ -4,6 +4,10 @@
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
   },
+  "engines": {
+    "node": "20.18.0",
+    "npm": "10.8.2"
+  },
   "devDependencies": {
     "esbuild": "^0.25.11"
   },

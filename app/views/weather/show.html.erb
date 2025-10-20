@@ -1,41 +1,69 @@
-<section class="weather-search">
-  <%= render "weather/search_form" %>
-</section>
-
-<% if defined?(@stale) && @stale %>
-  <aside class="stale-banner">
-    Latest data may be out of date. Refresh queued.
-  </aside>
-<% end %>
-
-<section class="weather-details">
-  <h1>Weather in <%= @report.location %></h1>
-  <% current = @report.current %>
-  <div class="current-conditions">
-    <p><strong>Condition:</strong> <%= current.condition %></p>
-    <p><strong>Temperature:</strong> <%= current.formatted_temperature %></p>
-    <% if current.formatted_high_low %>
-      <p><strong>High / Low:</strong> <%= current.formatted_high_low %></p>
-    <% end %>
-    <p><strong>Observed:</strong> <%= current.formatted_observed_at %></p>
-    <% if current.icon_url.present? %>
-      <img src="https:<%= current.icon_url %>" alt="<%= current.condition %>">
-    <% end %>
+<section class="weather">
+  <div class="weather__search">
+    <%= render "weather/search_form" %>
   </div>
 
-  <% if @report.daily.any? %>
-    <h2>Next <%= @report.daily.length %> Days</h2>
-    <ul class="daily-forecast">
-      <% @report.daily.each do |day| %>
-        <li>
-          <strong><%= day.formatted_date %>:</strong>
-          <%= day.condition %> —
-          <%= day.formatted_high_low %>
-          <% if day.icon_url.present? %>
-            <img src="https:<%= day.icon_url %>" alt="<%= day.condition %>">
-          <% end %>
-        </li>
+  <% if defined?(@stale) && @stale %>
+    <p class="weather__stale">Latest data may be out of date. Refresh queued.</p>
+  <% end %>
+
+  <header class="weather__header">
+    <h1 class="weather__title">Weather in <%= @report.location %></h1>
+    <% if @last_fetched_at.present? %>
+      <span class="weather__timestamp">
+        Updated <%= l(@last_fetched_at, format: :long) %>
+        <% if defined?(@from_cache) && @from_cache %>
+          <span class="weather__badge">cached</span>
+        <% end %>
+      </span>
+    <% end %>
+  </header>
+
+  <% current = @report.current %>
+  <section class="weather__current">
+    <div class="weather__metrics">
+      <div class="metric">
+        <span class="metric__label">Condition</span>
+        <span class="metric__value"><%= current.condition %></span>
+      </div>
+      <div class="metric">
+        <span class="metric__label">Temperature</span>
+        <span class="metric__value"><%= current.formatted_temperature %></span>
+      </div>
+      <% if current.formatted_high_low %>
+        <div class="metric">
+          <span class="metric__label">High / Low</span>
+          <span class="metric__value"><%= current.formatted_high_low %></span>
+        </div>
       <% end %>
-    </ul>
+      <div class="metric">
+        <span class="metric__label">Observed</span>
+        <span class="metric__value"><%= current.formatted_observed_at %></span>
+      </div>
+    </div>
+
+    <% if current.icon_url.present? %>
+      <img class="weather__icon" src="https:<%= current.icon_url %>" alt="<%= current.condition %>">
+    <% end %>
+  </section>
+
+  <% if @report.daily.any? %>
+    <section class="weather__forecast">
+      <h2 class="forecast__title">Next <%= @report.daily.length %> Days</h2>
+      <ul class="forecast__list">
+        <% @report.daily.each do |day| %>
+          <li class="forecast__item">
+            <div>
+              <span class="forecast__date"><%= day.formatted_date %></span>
+              <span class="forecast__condition"><%= day.condition %></span>
+              <span class="forecast__temp"><%= day.formatted_high_low %></span>
+            </div>
+            <% if day.icon_url.present? %>
+              <img src="https:<%= day.icon_url %>" alt="<%= day.condition %>" class="forecast__icon">
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </section>
   <% end %>
 </section>

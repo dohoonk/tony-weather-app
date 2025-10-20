@@ -22,20 +22,25 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body class="<%= signed_in? ? nil : "landing" %>">
+  <body class="<%= signed_in? ? "app" : "landing" %>">
     <% if signed_in? %>
-      <header>
-        <span>Welcome <%= current_user[:name] %></span>
-        <%= button_to "Sign out", logout_path, method: :delete, class: "sign-out" %>
-      </header>
+      <div class="app__shell">
+        <header class="app__header">
+          <span class="app__brand">WeatherForecaster</span>
+          <div class="app__session">
+            <span class="app__user">Welcome <%= current_user[:name] %></span>
+            <%= button_to "Sign out", logout_path, method: :delete, class: "sign-out" %>
+          </div>
+        </header>
 
-      <% flash.each do |type, message| %>
-        <div class="flash <%= type %>"><%= message %></div>
-      <% end %>
+        <% flash.each do |type, message| %>
+          <div class="flash <%= type %>"><%= message %></div>
+        <% end %>
 
-      <main>
-        <%= yield %>
-      </main>
+        <main class="app__content">
+          <%= yield %>
+        </main>
+      </div>
     <% else %>
       <div class="landing__shell">
         <header class="landing__header">

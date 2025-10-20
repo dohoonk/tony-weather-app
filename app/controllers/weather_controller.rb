@@ -43,6 +43,7 @@ class WeatherController < ApplicationController
     @report = cached.report
     @stale = stale
     @last_fetched_at = cached.fetched_at
+    @from_cache = true
   end
   
   # Updates state with fresh data and persists to cache.
@@ -50,6 +51,7 @@ class WeatherController < ApplicationController
     @report = report
     @stale = false
     @last_fetched_at = Time.current
+    @from_cache = false
     weather_cache.write(location, report, fetched_at: @last_fetched_at)
   end
   
@@ -63,6 +65,7 @@ class WeatherController < ApplicationController
     )
     @stale = true
     @last_fetched_at = Time.current
+    @from_cache = false
   end
 
   def weather_cache
