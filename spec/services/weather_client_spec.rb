@@ -4,15 +4,15 @@ RSpec.describe WeatherClient do
   let(:api_key) { "test-key" }
   let(:client) { described_class.new(api_key:) }
   let(:location) { "San Francisco, CA" }
-  let(:endpoint) { "https://api.weatherapi.com/v1/current.json" }
-  let(:query_params) { { key: api_key, q: location } }
+  let(:endpoint) { "https://api.weatherapi.com/v1/forecast.json" }
+  let(:query_params) { { key: api_key, q: location, days: 5 } }
 
-  describe "#current" do
+  describe "#forecast" do
     context "when the API returns success" do
       let(:response_body) do
         {
           location: { name: "San Francisco", region: "California", country: "USA", localtime: "2024-03-20 09:00" },
-          current: {
+          forecast: {
             temp_c: 18.0,
             temp_f: 64.4,
             condition: { text: "Partly cloudy" },
@@ -28,11 +28,11 @@ RSpec.describe WeatherClient do
       end
 
       it "returns parsed JSON data" do
-        result = client.current(location:)
+        result = client.forecast(location:)
 
         expect(result.dig("location", "name")).to eq("San Francisco")
-        expect(result.dig("current", "temp_f")).to eq(64.4)
-        expect(result.dig("current", "condition", "text")).to eq("Partly cloudy")
+        expect(result.dig("forecast", "temp_f")).to eq(64.4)
+        expect(result.dig("forecast", "condition", "text")).to eq("Partly cloudy")
       end
     end
 
@@ -44,7 +44,7 @@ RSpec.describe WeatherClient do
       end
 
       it "raises a WeatherClient::Error" do
-        expect { client.current(location:) }
+        expect { client.forecast(location:) }
         .to raise_error(WeatherClient::Error, /Weather API request failed/)
       end
     end
@@ -57,7 +57,7 @@ RSpec.describe WeatherClient do
       end
 
       it "raises a WeatherClient::Error" do
-        expect { client.current(location:) }
+        expect { client.forecast(location:) }
           .to raise_error(WeatherClient::Error, /Weather API request failed/)
       end
     end

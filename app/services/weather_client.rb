@@ -1,5 +1,6 @@
 class WeatherClient
-  API_ENDPOINT = "https://api.weatherapi.com/v1/current.json"
+  API_ENDPOINT = "https://api.weatherapi.com/v1/forecast.json"
+  DEFAULT_DAYS = 5
 
   # Raised for any downstream HTTP or parsing issues so callers can rescue uniformly
   class Error < StandardError; end
@@ -10,8 +11,8 @@ class WeatherClient
     @connection = connection
   end
 
-  def current(location:)
-    response = request_current(location:)
+  def forecast(location:, days: DEFAULT_DAYS)
+    response = request_forecast(location:, days:)
 
     raise Error, "Weather API request failed with status #{response.status}" unless response.success?
 
@@ -24,8 +25,8 @@ class WeatherClient
 
   attr_reader :api_key, :connection
 
-  def request_current(location:)
-    connection.get(API_ENDPOINT, default_params.merge(q: location))
+  def request_forecast(location:, days:)
+    connection.get(API_ENDPOINT, default_params.merge(q: location, days: days))
   end
 
   def default_params

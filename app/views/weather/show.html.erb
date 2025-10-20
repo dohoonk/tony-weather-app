@@ -9,8 +9,33 @@
 <% end %>
 
 <section class="weather-details">
-  <h1>Weather in <%= @forecast.location %></h1>
-  <p><strong>Condition:</strong> <%= @forecast.condition %></p>
-  <p><strong>Temperature:</strong> <%= @forecast.formatted_temperature %></p>
-  <p><strong>Observed:</strong> <%= @forecast.formatted_observed_at %></p>
+  <h1>Weather in <%= @report.location %></h1>
+  <% current = @report.current %>
+  <div class="current-conditions">
+    <p><strong>Condition:</strong> <%= current.condition %></p>
+    <p><strong>Temperature:</strong> <%= current.formatted_temperature %></p>
+    <% if current.formatted_high_low %>
+      <p><strong>High / Low:</strong> <%= current.formatted_high_low %></p>
+    <% end %>
+    <p><strong>Observed:</strong> <%= current.formatted_observed_at %></p>
+    <% if current.icon_url.present? %>
+      <img src="https:<%= current.icon_url %>" alt="<%= current.condition %>">
+    <% end %>
+  </div>
+
+  <% if @report.daily.any? %>
+    <h2>Next <%= @report.daily.length %> Days</h2>
+    <ul class="daily-forecast">
+      <% @report.daily.each do |day| %>
+        <li>
+          <strong><%= day.formatted_date %>:</strong>
+          <%= day.condition %> —
+          <%= day.formatted_high_low %>
+          <% if day.icon_url.present? %>
+            <img src="https:<%= day.icon_url %>" alt="<%= day.condition %>">
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </section>
