@@ -2,7 +2,10 @@ class WeatherController < ApplicationController
   before_action :require_login
   
   def show
-    location = params[:location].presence || default_location
+    address_query = AddressQuery.new(params[:address])
+    location = address_query.value || default_location
+
+    @address_query = address_query
     @forecast = weather_service.fetch(location:)
   rescue WeatherService::Error
     flash.now[:alert] = "Unable to fetch weather right now."

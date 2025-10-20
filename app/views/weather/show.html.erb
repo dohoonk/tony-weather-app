@@ -1,8 +1,10 @@
-<h1>Weather#show</h1>
+<section class="weather-search">
+  <%= render "weather/search_form" %>
+</section>
 
-<section>
-    <h1>Weather in <%= @forecast.location %></h1>
-    <p><strong>Condition:</strong> <%= @forecast.condition %></p>
-    <p><strong>Temperature:</strong> <%= @forecast.formatted_temperature %></p>
-    <p><strong>Observed:</strong> <%= @forecast.formatted_observed_at %></p>
+<section class="weather-details">
+  <h1>Weather in <%= @forecast.location %></h1>
+  <p><strong>Condition:</strong> <%= @forecast.condition %></p>
+  <p><strong>Temperature:</strong> <%= @forecast.formatted_temperature %></p>
+  <p><strong>Observed:</strong> <%= @forecast.formatted_observed_at %></p>
 </section>

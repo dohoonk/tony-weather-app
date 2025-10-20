@@ -1,0 +1,12 @@
+<%= form_with url: weather_path, method: :get, local: true, class: "search-form" do %>
+  <label for="address-input">Search for a location</label>
+  <input
+    id="address-input"
+    name="address"
+    type="text"
+    value="<%= @address_query&.value %>"
+    placeholder="Start typing an address"
+    autocomplete="off"
+  >
+  <%= submit_tag "Get weather" %>
+<% end %>

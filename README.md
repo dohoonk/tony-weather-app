@@ -1,24 +1,35 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# WeatherForecast
 
-Things you may want to cover:
+Rails 7 application that surfaces weather data via a typed address search. Authenticated users sign in with Google OAuth, submit an address, and the app fetches the current forecast from WeatherAPI.
 
-* Ruby version
+## Setup
 
-* System dependencies
+```bash
+bundle install
+bin/rails db:setup
+```
 
-* Configuration
+Create a `.env` file with:
 
-* Database creation
+```
+WEATHERAPI_KEY=your_api_key
+GOOGLE_CLIENT_ID=your_client_id
+GOOGLE_CLIENT_SECRET=your_client_secret
+```
 
-* Database initialization
+## Running Tests
 
-* How to run the test suite
+```bash
+bundle exec rspec
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Address Search Overview
 
-* Deployment instructions
+- `AddressQuery` form object (see `app/forms/address_query.rb`) trims user input and exposes a normalized value.
+- `WeatherController#show` instantiates `AddressQuery` and passes `address_query.value || default_location` to `WeatherService`.
+- `_search_form.html.erb` binds the typed value so the form retains state after submission.
+- Request and system specs exercise manual address entry via the service layer.
 
-* ...
+For a deeper breakdown of responsibilities see `ARCHITECTURE.md`.
