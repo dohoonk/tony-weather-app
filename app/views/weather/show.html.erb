@@ -2,6 +2,12 @@
   <%= render "weather/search_form" %>
 </section>
 
+<% if defined?(@stale) && @stale %>
+  <aside class="stale-banner">
+    Latest data may be out of date. Refresh queued.
+  </aside>
+<% end %>
+
 <section class="weather-details">
   <h1>Weather in <%= @forecast.location %></h1>
   <p><strong>Condition:</strong> <%= @forecast.condition %></p>

@@ -43,6 +43,11 @@ gem "thruster", require: false
 # HTTP client
 gem "faraday"
 
+# Caching + background jobs
+gem "redis"
+gem "sidekiq"
+
+
 # Env config
 gem "dotenv-rails", groups: [:development, :test]
 

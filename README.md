@@ -33,3 +33,10 @@ bundle exec rspec
 - Request and system specs exercise manual address entry via the service layer.
 
 For a deeper breakdown of responsibilities see `ARCHITECTURE.md`.
+
+## Caching & Background Refresh
+
+- `WeatherCache` persists serialized forecasts in Redis (`REDIS_URL`, defaults to `redis://127.0.0.1:6379/0`).
+- `WeatherController#show` serves cached data immediately; entries older than five minutes enqueue `WeatherFetchJob` for refresh.
+- `WeatherFetchJob` runs via Sidekiq and rewrites the cache with fresh data.
+- Run Sidekiq locally with `bundle exec sidekiq -q weather`.

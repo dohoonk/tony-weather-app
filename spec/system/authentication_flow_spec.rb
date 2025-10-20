@@ -17,6 +17,12 @@ RSpec.describe "Authentication flow", type: :system do
     service = instance_double(WeatherService, fetch: forecast)
     allow(WeatherService).to receive(:new).and_return(service)
 
+    cache = instance_double(WeatherCache)
+    allow(WeatherCache).to receive(:new).and_return(cache)
+    allow(cache).to receive(:read).and_return(nil)
+    allow(cache).to receive(:write)
+    allow(WeatherFetchJob).to receive(:perform_async)
+
     OmniAuth.config.mock_auth[:google_oauth2] = mock_google_auth(
       info: {
         name: "System User",
